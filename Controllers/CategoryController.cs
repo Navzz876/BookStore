@@ -1,6 +1,7 @@
 ﻿using BookStore.Data;
 using BookStore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Controllers
 {
@@ -23,9 +24,52 @@ namespace BookStore.Controllers
         [HttpPost]
         public IActionResult CreateCategory(Category category)
         {
-            _applicationContext.Categories.Add(category);
-            _applicationContext.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _applicationContext.Categories.Add(category);
+                _applicationContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+           
+        }
+        public IActionResult EditCategory(int? id)
+        {
+           
+            var categoryList = _applicationContext.Categories.ToList();
+            var category= categoryList.FirstOrDefault(x=>x.Id == id);
+            return View(category);
+        }
+        [HttpPost]
+        public IActionResult EditCategory(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                _applicationContext.Categories.UpdateRange(category);
+                _applicationContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+
+        }
+        public IActionResult DeleteCategory(int? id)
+        {
+
+            var categoryList = _applicationContext.Categories.ToList();
+            var category = categoryList.FirstOrDefault(x => x.Id == id);
+            return View(category);
+        }
+        [HttpPost]
+        public IActionResult DeleteCategory(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                _applicationContext.Categories.RemoveRange(category);
+                _applicationContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+
         }
     }
 }

@@ -16,7 +16,7 @@
             </a>
         </div>
     </div>
-<table class="table table-bordered table-striped ">
+<table class="table table-bordered table-striped">
     <tr>
         <th>
             Category Name
@@ -24,6 +24,9 @@
         <th>
             Display Order
         </th>
+        <th></th>
+        <th></th>
+       
     </tr>
     @foreach (var category in Model)
     {
@@ -34,6 +37,12 @@
             </td>
             <td>
                 @category.DisplayOrder
+            </td>
+            <td class="col-1">                
+                    <a class=" link-primary text-primary" asp-controller="Category" asp-action="EditCategory" asp-route-id="@category.Id"><i class="bi bi-pencil-square text-primary"></i> Edit </a>
+            </td>
+            <td class="col-1">
+                    <a asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@category.Id"> <i class="bi bi-trash-fill text-danger"></i> </a>
             </td>
         </tr>
     }  

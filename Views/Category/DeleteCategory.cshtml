@@ -1,12 +1,15 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
 @model Category
 
 <form method="post">
     <div class="border-4">
         <div class="row pb-3 pt-4">
-            <h2 class="text-dark"> Create Category</h2>
+            <h2 class="text-dark"> Delete Category</h2>
         </div>
         <div class="mb-4">
             <label class="text-info">Name</label>
@@ -20,20 +23,15 @@
         </div>
         <div class="row mb-4 pb-3">
             <div class="mb-4 col-6 text-start">
-                <button class="btn btn-primary text-bg-dark bg-primary"> Add Category </button>
+                <button class="btn btn-primary text-bg-dark bg-danger"> Delete Category </button>
 
             </div>
             <div class="mb-4 col-6 text-end">
                 <button asp-controller="Category" asp-action="Index" class="btn btn-primary text-bg-dark bg-primary"><i class="bi bi-backspace-fill hvr-icon"></i> Back To List </button>
             </div>
         </div>
-        
-        
+
+
     </div>
 </form>
 
-@*@section Scripts{
-   
-        <partial name="_ValidationScriptsPartial"/>
-    
-}*@

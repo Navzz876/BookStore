@@ -1,9 +1,7 @@
-﻿using BookStore.Data;
-using BookStore.Models;
+﻿using BookStore.DataAccess.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace BookStore.Controllers
+namespace BookStore.Models.Models.Controllers
 {
     public class CategoryController : Controller
     {

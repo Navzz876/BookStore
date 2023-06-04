@@ -28,7 +28,7 @@
         <th></th>
        
     </tr>
-    @foreach (var category in Model)
+    @foreach (var category in Model.OrderBy(x=>x.DisplayOrder))
     {
         <tr>
 

@@ -28,8 +28,10 @@ namespace BookStore.Controllers
             {
                 _applicationContext.Categories.Add(category);
                 _applicationContext.SaveChanges();
+                TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
+            TempData["failure"] = "Unable to create category";
             return View();
            
         }
@@ -47,9 +49,11 @@ namespace BookStore.Controllers
             {
                 _applicationContext.Categories.UpdateRange(category);
                 _applicationContext.SaveChanges();
+                TempData["success"] = "Category updated successfully";
                 return RedirectToAction("Index");
             }
-            return View();
+                TempData["failure"] = "Unable to update category";
+                return View();
 
         }
         public IActionResult DeleteCategory(int? id)
@@ -66,8 +70,10 @@ namespace BookStore.Controllers
             {
                 _applicationContext.Categories.RemoveRange(category);
                 _applicationContext.SaveChanges();
+                TempData["success"] = "Category deleted successfully";
                 return RedirectToAction("Index");
             }
+            TempData["failure"] = "Unable to delete category";
             return View();
 
         }

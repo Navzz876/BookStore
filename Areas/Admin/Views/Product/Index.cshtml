@@ -1,0 +1,50 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Product>
+<div class="container">
+    <div class=" row pt-4 pb-4 justify-content-md-around">
+        <div class="col-6">
+            <h2> Product List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Product" asp-action="CreateProduct" class="link-primary text-primary">
+                <i class="bi bi-bag-plus h6 text-primary">
+
+                </i>
+                Add Product
+            </a>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>
+                 Title
+            </th>
+            <th>
+                Author
+            </th>
+            <th></th>
+            <th></th>
+
+        </tr>
+        @foreach (var product in Model.OrderBy(x => x.ProductId))
+        {
+            <tr>
+
+                <td>
+                    @product.Title
+                </td>
+                <td>
+                    @product.Author
+                </td>
+                <td class="col-1">
+                    <a class=" link-primary text-primary" asp-controller="Product" asp-action="EditProduct" asp-route-id="@product.ProductId"><i class="bi bi-pencil-square text-primary"></i> Edit </a>
+                </td>
+                <td class="col-1">
+                    <a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@product.ProductId"> <i class="bi bi-trash-fill text-danger"></i> </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

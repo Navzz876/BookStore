@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model Product
+@model ProductViewModel
 
 <form method="post">
     <div class="card border-info mb-3 mt-4" style="max-width: stretch 200px;">
@@ -11,13 +11,23 @@
             </div>
             <div class="mb-4 p-3">
                 <label class="card-text">Title</label>
-                <input asp-for=Title class="input-group-text" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+                <input asp-for=@Model.Product.Title class="input-group-text" />
+                <span asp-validation-for="@Model.Product.Title" class="text-danger"></span>
+            </div>
+            <div class="mb-4 p-3">
+                <label class="card-text">ISBN</label>
+                <input asp-for=@Model.Product.ISBN class="input-group-text" />
+                <span asp-validation-for="@Model.Product.ISBN" class="text-danger"></span>
             </div>
             <div class="mb-4 p-3">
                 <label class="card-text">Author</label>
-                <input asp-for=Author class="input-group-text" />
-                <span asp-validation-for="Author" class="text-danger"></span>
+                <input asp-for=@Model.Product.Author class="input-group-text" />
+                <span asp-validation-for="@Model.Product.Author" class="text-danger"></span>
+            </div>
+            <div class="mb-4 p-3">
+                <label class="card-text">Price</label>
+                <input asp-for=@Model.Product.Price class="input-group-text" />
+                <span asp-validation-for="@Model.Product.Price" class="text-danger"></span>
             </div>
             <div class="row mb-4 pb-3 p-3">
                 <div class="mb-4 col-6 text-start">

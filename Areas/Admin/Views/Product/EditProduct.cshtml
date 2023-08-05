@@ -3,17 +3,24 @@
 *@
 @model ProductViewModel
 
-<form method="post">
+<form method="post" asp-route-id="@Model.Product.ProductId">
+    <input asp-for="@Model.Product.Id" hidden />
     <div class="card border-info mb-3 mt-4" style="max-width: stretch 200px;">
         <div class="cart-body text-info">
             <div class="row pb-3 pt-4 p">
                 <h2 class="card-title text-center"> Edit Product</h2>
             </div>
+            <div class="col-10">
             <div class="mb-4 p-3">
                 <label class="card-text">Title</label>
                 <input asp-for=@Model.Product.Title class="input-group-text" />
                 <span asp-validation-for="@Model.Product.Title" class="text-danger"></span>
             </div>
+                <div class="mb-4 p-3">
+                    <label class="card-text">Description</label>
+                    <textarea asp-for=@Model.Product.Description class="input-group-text"></textarea>
+                    <span asp-validation-for="@Model.Product.Description" class="text-danger"></span>
+                </div>
             <div class="mb-4 p-3">
                 <label class="card-text">ISBN</label>
                 <input asp-for=@Model.Product.ISBN class="input-group-text" />
@@ -29,21 +36,47 @@
                 <input asp-for=@Model.Product.Price class="input-group-text" />
                 <span asp-validation-for="@Model.Product.Price" class="text-danger"></span>
             </div>
+                <div class="mb-4 p-3">
+                    <label class="card-text">Category</label>
+                    <select asp-for=@Model.Product.Id asp-items="@Model.CategoryList" class="form-select">
+                        <option  value="@Model.Product.Category.Id == @Model.Product.Id"></option>
+                    </select>
+                    <span asp-validation-for="@Model.Product.Id" class="text-danger"></span>
+                </div>            
+          @*  <div class="mb-4 p-3">
+                <label class="card-text">Image</label>
+                <input asp-for="@Model.Product.ImageUrl" name="file" class="input-group-text" type="file" />
+            </div>
+            </div>
+            <div class="col-2">
+                <img src="@Model.Product.ImageUrl" style="width:100%" />
+            </div>*@
             <div class="row mb-4 pb-3 p-3">
                 <div class="mb-4 col-6 text-start">
                     <button class="btn btn-primary text-bg-dark bg-info"> Update Product </button>
 
                 </div>
                 <div class="mb-4 col-6 text-end">
-                    <button asp-controller="Category" asp-action="Index" class="btn btn-primary text-bg-dark bg-info"><i class="bi bi-backspace-fill hvr-icon"></i> Back To List </button>
+                    <button asp-controller="Product" asp-action="Index" class="btn btn-primary text-bg-dark bg-info"><i class="bi bi-backspace-fill hvr-icon"></i> Back To List </button>
                 </div>
             </div>
         </div>
     </div>
 </form>
 
-@*@section Scripts{
+@section Scripts{
 
-        <partial name="_ValidationScriptsPartial"/>
-
-}*@
+        <script>
+    tinymce.init({
+      selector: 'textarea',
+      plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+      toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+      tinycomments_mode: 'embedded',
+      tinycomments_author: 'Author name',
+      mergetags_list: [
+        { value: 'First.Name', title: 'First Name' },
+        { value: 'Email', title: 'Email' },
+      ]
+    });
+  </script>
+  }

@@ -13,10 +13,12 @@ namespace BookStore.Areas.Admin.Controllers
     {
         protected readonly IProductRepository _productDb;
         protected readonly ICategoryRepository _categoryDb;
-        public ProductController(IProductRepository productDb,ICategoryRepository categoryDb)
+        protected readonly IWebHostEnvironment _webHostEnvironment;
+        public ProductController(IProductRepository productDb,ICategoryRepository categoryDb, IWebHostEnvironment webHostEnvironment)
         {
             _productDb = productDb;
             _categoryDb = categoryDb;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -32,14 +34,27 @@ namespace BookStore.Areas.Admin.Controllers
                 CategoryList = categoryList
 
             };
+            productViewModel.Product.ImageUrl = "";
             return View(productViewModel);
         }
         [HttpPost]
-        public IActionResult CreateProduct(ProductViewModel productViewModel)
+        public IActionResult CreateProduct(ProductViewModel productViewModel, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
-                _productDb.Add(productViewModel.Product);
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                   var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    var imgPath = Path.Combine(wwwRootPath, @"Images\Product");
+                    using (var fileStream = new FileStream(Path.Combine(imgPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                    productViewModel.Product.ImageUrl = @"Images\Product\" + fileName;
+                }
+                productViewModel.Product.ImageUrl = "";
+                    _productDb.Add(productViewModel.Product);
                 _productDb.Save();
                 TempData["success"] = "Product created successfully";
                 return RedirectToAction("Index");
@@ -50,8 +65,10 @@ namespace BookStore.Areas.Admin.Controllers
         }
         public IActionResult EditProduct(int? id)
         {
+            IEnumerable<SelectListItem> categoryList = _categoryDb.GetAll().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
             var productViewModel = new ProductViewModel();
             productViewModel.Product = _productDb.Get(x => x.ProductId == id);
+            productViewModel.CategoryList= categoryList;
             return View(productViewModel);
         }
         [HttpPost]
@@ -59,7 +76,9 @@ namespace BookStore.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                productViewModel.Product = _productDb.Get(x => x.ProductId == id);
+                 //_productDb.Get(x => x.ProductId == id);
+                productViewModel.Product.ImageUrl = "";
+                productViewModel.Product.ProductId = id.Value;
                 _productDb.Update(productViewModel.Product);
                 _productDb.Save();
                 TempData["success"] = "Product updated successfully";
@@ -72,8 +91,10 @@ namespace BookStore.Areas.Admin.Controllers
         public IActionResult DeleteProduct(int? id)
         {
 
+            IEnumerable<SelectListItem> categoryList = _categoryDb.GetAll().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
             var productViewModel = new ProductViewModel();
             productViewModel.Product = _productDb.Get(x => x.ProductId == id);
+            productViewModel.CategoryList = categoryList;
             return View(productViewModel);
         }
 

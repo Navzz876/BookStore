@@ -42,6 +42,7 @@ namespace BookStore.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                productViewModel.Product.ImageUrl = "";
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 if (file != null)
                 {
@@ -51,9 +52,9 @@ namespace BookStore.Areas.Admin.Controllers
                     {
                         file.CopyTo(fileStream);
                     }
-                    productViewModel.Product.ImageUrl = @"Images\Product\" + fileName;
+                    productViewModel.Product.ImageUrl = @"/Images//Product/" + fileName;
                 }
-                productViewModel.Product.ImageUrl = "";
+
                     _productDb.Add(productViewModel.Product);
                 _productDb.Save();
                 TempData["success"] = "Product created successfully";
@@ -77,7 +78,7 @@ namespace BookStore.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                  //_productDb.Get(x => x.ProductId == id);
-                productViewModel.Product.ImageUrl = "";
+                //productViewModel.Product.ImageUrl = "";
                 productViewModel.Product.ProductId = id.Value;
                 _productDb.Update(productViewModel.Product);
                 _productDb.Save();

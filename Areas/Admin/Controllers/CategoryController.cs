@@ -15,7 +15,7 @@ namespace BookStore.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            var categoryList = _categoryDb.GetAll();
+            var categoryList = _categoryDb.GetAll(includeProperties:null);
             return View(categoryList);
         }
         public IActionResult CreateCategory()
@@ -39,7 +39,7 @@ namespace BookStore.Areas.Admin.Controllers
         public IActionResult EditCategory(int? id)
         {
 
-            var category = _categoryDb.Get(x => x.Id == id);
+            var category = _categoryDb.Get(x => x.Id == id, includeProperties: null);
             return View(category);
         }
         [HttpPost]
@@ -59,7 +59,7 @@ namespace BookStore.Areas.Admin.Controllers
         public IActionResult DeleteCategory(int? id)
         {
 
-            var category = _categoryDb.Get(x => x.Id == id);
+            var category = _categoryDb.Get(x => x.Id == id, includeProperties: null);
             return View(category);
         }
         [HttpPost]

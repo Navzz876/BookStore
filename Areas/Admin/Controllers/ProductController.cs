@@ -22,12 +22,12 @@ namespace BookStore.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            var categoryList = _productDb.GetAll();
-            return View(categoryList);
+            var productList = _productDb.GetAll(includeProperties: "Category");
+            return View(productList);
         }
         public IActionResult CreateProduct()
         {
-            IEnumerable<SelectListItem> categoryList= _categoryDb.GetAll().Select(x=> new SelectListItem() { Text= x.Name, Value= x.Id.ToString()});
+            IEnumerable<SelectListItem> categoryList= _categoryDb.GetAll(includeProperties: null).Select(x=> new SelectListItem() { Text= x.Name, Value= x.Id.ToString()});
             ProductViewModel productViewModel = new ProductViewModel()
             {
                 Product = new Product(),
@@ -66,18 +66,39 @@ namespace BookStore.Areas.Admin.Controllers
         }
         public IActionResult EditProduct(int? id)
         {
-            IEnumerable<SelectListItem> categoryList = _categoryDb.GetAll().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
+            IEnumerable<SelectListItem> categoryList = _categoryDb.GetAll(includeProperties: null).Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
             var productViewModel = new ProductViewModel();
-            productViewModel.Product = _productDb.Get(x => x.ProductId == id);
+            productViewModel.Product = _productDb.Get(x => x.ProductId == id, includeProperties: "Category");
             productViewModel.CategoryList= categoryList;
             return View(productViewModel);
         }
         [HttpPost]
-        public IActionResult EditProduct(ProductViewModel productViewModel, int? id)
+        public IActionResult EditProduct(ProductViewModel productViewModel, int? id, IFormFile? file)
         {
+           
             if (ModelState.IsValid)
             {
-                 //_productDb.Get(x => x.ProductId == id);
+                productViewModel.Product = _productDb.Get(x => x.ProductId == id, includeProperties: "Category");
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (file != null)
+                {
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    var imgPath = Path.Combine(wwwRootPath, @"Images\Product");
+                    if(!string.IsNullOrEmpty(productViewModel.Product.ImageUrl))
+                    {
+                        var oldImgPath= Path.Combine(wwwRootPath, productViewModel.Product.ImageUrl.TrimStart('/'));
+                        if(System.IO.File.Exists(oldImgPath))
+                        {
+                            System.IO.File.Delete(oldImgPath);
+                        }
+                    }
+                    using (var fileStream = new FileStream(Path.Combine(imgPath, fileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                    productViewModel.Product.ImageUrl = @"/Images//Product/" + fileName;
+                }
+                //_productDb.Get(x => x.ProductId == id);
                 //productViewModel.Product.ImageUrl = "";
                 productViewModel.Product.ProductId = id.Value;
                 _productDb.Update(productViewModel.Product);
@@ -92,9 +113,9 @@ namespace BookStore.Areas.Admin.Controllers
         public IActionResult DeleteProduct(int? id)
         {
 
-            IEnumerable<SelectListItem> categoryList = _categoryDb.GetAll().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
+            IEnumerable<SelectListItem> categoryList = _categoryDb.GetAll(includeProperties: null).Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
             var productViewModel = new ProductViewModel();
-            productViewModel.Product = _productDb.Get(x => x.ProductId == id);
+            productViewModel.Product = _productDb.Get(x => x.ProductId == id, includeProperties: "Category");
             productViewModel.CategoryList = categoryList;
             return View(productViewModel);
         }
@@ -104,11 +125,22 @@ namespace BookStore.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                productViewModel.Product = _productDb.Get(x => x.ProductId == id);
-                _productDb.Delete(productViewModel.Product);
-                _productDb.Save();
-                TempData["success"] = "Product deleted successfully";
-                return RedirectToAction("Index");
+                productViewModel.Product = _productDb.Get(x => x.ProductId == id, includeProperties: "Category");
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                    if (!string.IsNullOrEmpty(productViewModel.Product.ImageUrl))
+                    {
+                        var oldImgPath = Path.Combine(wwwRootPath, productViewModel.Product.ImageUrl.TrimStart('/'));
+                        if (System.IO.File.Exists(oldImgPath))
+                        {
+                            System.IO.File.Delete(oldImgPath);
+                        }
+                    productViewModel.Product.ImageUrl = "";
+                    }                                 
+            productViewModel.Product = _productDb.Get(x => x.ProductId == id, includeProperties: "Category");
+            _productDb.Delete(productViewModel.Product);
+            _productDb.Save();
+            TempData["success"] = "Product deleted successfully";
+            return RedirectToAction("Index");
             }
             TempData["failure"] = "Unable to delete product";
             return View(productViewModel);

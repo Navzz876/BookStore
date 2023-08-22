@@ -2,12 +2,13 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @model ProductViewModel
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div class="card border-info mb-3 mt-4" style="max-width: stretch 200px;">
         <div class="cart-body text-info">
             <div class="row pb-3 pt-4 p">
                 <h2 class="card-title text-center text-danger "> Delete Product</h2>
             </div>
+            <div class="row">
             <div class="col-10">
                 <div class="mb-4 p-3">
                     <label class="card-text">Title</label>
@@ -41,15 +42,11 @@
                     </select>
                     <span asp-validation-for="@Model.Product.Id" class="text-danger"></span>
                 </div>
-                @*                <div class="mb-4 p-3">
-                    <label class="card-text">Image</label>
-                    <input asp-for="@Model.Product.ImageUrl" name="file" class="input-group-text" type="file" />
-                </div>
-            </div>
-
-            <div class="col-2">
-                <img src="@Model.Product.ImageUrl" style="width:100%" />*@
-            </div>
+        </div>        
+    <div class="col-2">
+        <img src="@Model.Product.ImageUrl" width="100" height="100" />
+    </div>
+    </div>
             <div class="row mb-4 pb-3 p-3">
                 <div class="mb-4 col-6 text-start">
                     <button class="btn btn-primary text-bg-dark bg-danger"> Delete Product </button>

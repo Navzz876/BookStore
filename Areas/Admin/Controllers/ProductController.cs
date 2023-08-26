@@ -110,41 +110,37 @@ namespace BookStore.Areas.Admin.Controllers
             return View(productViewModel);
 
         }
-        public IActionResult DeleteProduct(int? id)
+        #region API Calls
+        [HttpGet]
+        public IActionResult GetAll() 
         {
-
-            IEnumerable<SelectListItem> categoryList = _categoryDb.GetAll(includeProperties: null).Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
-            var productViewModel = new ProductViewModel();
-            productViewModel.Product = _productDb.Get(x => x.ProductId == id, includeProperties: "Category");
-            productViewModel.CategoryList = categoryList;
-            return View(productViewModel);
+            var productList = _productDb.GetAll(includeProperties: "Category");
+            return Json(new { data = productList });
         }
-
-        [HttpPost]
+        [HttpDelete]
         public IActionResult DeleteProduct(ProductViewModel productViewModel, int? id)
         {
             if (ModelState.IsValid)
             {
                 productViewModel.Product = _productDb.Get(x => x.ProductId == id, includeProperties: "Category");
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
-                    if (!string.IsNullOrEmpty(productViewModel.Product.ImageUrl))
+                if (!string.IsNullOrEmpty(productViewModel.Product.ImageUrl))
+                {
+                    var oldImgPath = Path.Combine(wwwRootPath, productViewModel.Product.ImageUrl.TrimStart('/'));
+                    if (System.IO.File.Exists(oldImgPath))
                     {
-                        var oldImgPath = Path.Combine(wwwRootPath, productViewModel.Product.ImageUrl.TrimStart('/'));
-                        if (System.IO.File.Exists(oldImgPath))
-                        {
-                            System.IO.File.Delete(oldImgPath);
-                        }
+                        System.IO.File.Delete(oldImgPath);
+                    }
                     productViewModel.Product.ImageUrl = "";
-                    }                                 
-            productViewModel.Product = _productDb.Get(x => x.ProductId == id, includeProperties: "Category");
-            _productDb.Delete(productViewModel.Product);
-            _productDb.Save();
-            TempData["success"] = "Product deleted successfully";
-            return RedirectToAction("Index");
+                }
+                productViewModel.Product = _productDb.Get(x => x.ProductId == id, includeProperties: "Category");
+                _productDb.Delete(productViewModel.Product);
+                _productDb.Save();
+                return Json(new {success= true, message= "Product Deleted Successful"});
             }
-            TempData["failure"] = "Unable to delete product";
-            return View(productViewModel);
+            return Json(new { success = false, message = "Unable to Delete Product" });
 
         }
+        #endregion
     }
 }

@@ -33,30 +33,11 @@
             <th></th>
             <th></th>
 
-        </tr>
-        @foreach (var product in Model.OrderBy(x => x.ProductId))
-        {
-            <tr>
-
-                <td>
-                    @product.Title
-                </td>
-                <td>
-                    @product.ISBN
-                </td>
-                <td>
-                    @product.Author
-                </td>
-                <td>
-                    @product.Price
-                </td>
-                <td class="col-1">
-                    <a class=" link-primary text-primary" asp-controller="Product" asp-action="EditProduct" asp-route-id="@product.ProductId"><i class="bi bi-pencil-square text-primary"></i> Edit </a>
-                </td>
-                <td class="col-1">
-                    <a asp-controller="Product" asp-action="DeleteProduct" asp-route-id="@product.ProductId"> <i class="bi bi-trash-fill text-danger"></i> </a>
-                </td>
-            </tr>
-        }
+        </tr>                
     </table>
+    <table id="myTable"></table>
 </div>
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+}

@@ -19,11 +19,15 @@
                     <input asp-for=@Model.Password type="password" class="form-control"/>
                     <span asp-validation-for="@Model.UserName" class="text-danger"></span>
                 </div>
-                <span class="col-6 m-4">
-                    <button type="submit" class="btn btn-primary col-3 m-4">Login</button>
-                    <button asp-controller="Home" asp-action="Register" class="btn btn-secondary col-4">Register</button>
-                </span>
+                <div class=" m-4">
+                    <button type="submit" class="btn btn-primary">Login</button>                    
+                </div>
                 
+            </form>
+            <form method="get">
+                <div class=" m-4">
+                    <button asp-controller="Home" asp-action="RegisterUser" class="btn btn-secondary">Register</button>
+                </div>
             </form>
         </div>
     </div>

@@ -1,0 +1,81 @@
+﻿@model UserInformationViewModel
+
+
+<div class="card border-info mb-3 mt-4" style="max-width: stretch 200px;">
+    <div class="cart-body text-info">
+        <form method="post">
+        <div class="row pb-3 pt-4 p">
+            <h2 class="card-title text-center text-secondary"> Register User</h2>
+        </div>
+                <div class="mb-4 p-3">
+            <label class="card-text  text-secondary">User Name</label>
+                    <input asp-for=@Model.UserInformation.UserName class="input-group-text" />
+                    <span asp-validation-for="@Model.UserInformation.UserName class="text-danger"></span>
+                </div>
+        <div class="mb-4 p-3">
+            <label class="card-text  text-secondary">Password</label>
+            <input asp-for=@Model.UserInformation.Password type="password" class="input-group-text" />
+            <span asp-validation-for="@Model.UserInformation.Password class="text-danger"></span>
+        </div>
+        <div class="mb-4 p-3">
+            <label class="card-text  text-secondary"> User Type</label>
+            <input asp-for=@Model.UserInformation.UserType class="input-group-text" />
+            <span asp-validation-for="@Model.UserInformation.UserType class=" text-danger"></span>
+        </div>
+        <div class="mb-4 p-3">
+            <label class="card-text  text-secondary">Phone Number</label>
+            <input asp-for=@Model.UserInformation.Phone class="input-group-text" />
+            <span asp-validation-for="@Model.UserInformation.Phone class=" text-danger"></span>
+        </div>
+        <div class="mb-4 p-3">
+            <label class="card-text  text-secondary"> Email Address</label>
+            <input asp-for=@Model.UserInformation.EmailAddress class="input-group-text" />
+            <span asp-validation-for="@Model.UserInformation.EmailAddress class=" text-danger"></span>
+        </div>
+        <div class="mb-4 p-3">
+            <label class="card-text  text-secondary">Why choose Book Store?</label>
+            <textarea asp-for=@Model.UserInformation.BookStoreChoice class="input-group-text"></textarea>
+        </div>
+
+        @*if(@Model.UserInformation.UserType != null && @Model.UserInformation.UserType == "Customer")
+        {*@
+        <div class="mb-4 p-3">
+            <label class="card-text  text-secondary">Interested Genre</label>
+            <select asp-for=@Model.UserInformation.Id asp-items="@Model.CategoryList" class="form-select">
+                <option disabled selected> --- Select Genre---</option>
+            </select>
+            <span asp-validation-for="@Model.UserInformation.Id" class="text-danger"></span>
+            </div>
+        <div class="row mb-4 pb-3 p-3">
+            <div class="mb-4 col-6 text-start">
+                <button type="submit" class="btn btn-secondary bg-secondary"> Register User </button>
+
+            </div>
+            </div>
+</form>
+<form method="get" style="margin: -60px">
+            <div class="mb-4 col-6 text-end">
+                <button asp-controller="Home" asp-action="Index" class="btn btn-secondary bg-secondary" style="margin-right: -500px"><i class="bi bi-backspace-fill hvr-icon"></i> Back To Login Page </button>
+        </div>
+</form>
+</div>
+</div>
+
+       
+@section Scripts{
+
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name',
+            mergetags_list: [
+                { value: 'First.Name', title: 'First Name' },
+                { value: 'Email', title: 'Email' },
+            ]
+        });
+    </script>
+
+}

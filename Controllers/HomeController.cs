@@ -38,13 +38,13 @@ namespace BookStore.Controllers
             var IsEnteredPassword = userInfoList.Where(x => x.Password == userInformation.Password);          
             if (IsEnteredPassword.Any() && IsEnteredUserName.Any())
             {
-                if (userInformation.UserName.Contains("admin"))
+                if (userInformation.UserName.Contains("Admin"))
                 {
                     return RedirectToAction("Index", "Category", new { area = "Admin" });
                 }
-                else if (userInformation.UserName.Contains("org"))
+                else if (userInformation.UserName.Contains("Customer"))
                 {
-                    userInformation.UserType = "Company";
+                    return RedirectToAction("Index", "User", new { area = "Customer" });
                 }
             }
             TempData["failure"] = "User does not exist in the records. Please Register as a new user";

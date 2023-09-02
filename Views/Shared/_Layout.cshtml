@@ -21,16 +21,31 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                        @if (Html.ViewContext.RouteData.Values.Count() > 0)
+                            {
+                            @if (Html.ViewContext.RouteData.Values["area"].ToString() == "Admin")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-bg-primary" asp-area="Admin" asp-controller="Category" asp-action="Index" >Category</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-bg-primary" asp-area="Admin" asp-controller="Product" asp-action="Index" >Product</a>
+                                </li>
+                            }
+                        }
+                        else{
                         <li class="nav-item">
-                            <a class="nav-link text-bg-primary" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                                <a class="nav-link text-bg-primary" asp-area="Admin" asp-controller="Category" asp-action="Index" style="visibility:hidden">Category</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-bg-primary" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                                <a class="nav-link text-bg-primary" asp-area="Admin" asp-controller="Product" asp-action="Index" style="visibility:hidden">Product</a>
                         </li>
-                    </ul>
-                </div>
+                            }
+                       
+                        </ul>
+                    </div>
             </div>
         </nav>
     </header>

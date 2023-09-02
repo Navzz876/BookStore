@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace BookStore.Controllers
 {
+    [Area("Home")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -40,7 +41,7 @@ namespace BookStore.Controllers
             {
                 if (userInformation.UserName.Contains("Admin"))
                 {
-                    return RedirectToAction("Index", "Category", new { area = "Admin" });
+                    return RedirectToAction("Index", "AdminHome", new { area = "Admin" });
                 }
                 else if (userInformation.UserName.Contains("Customer"))
                 {

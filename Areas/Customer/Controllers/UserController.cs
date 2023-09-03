@@ -22,5 +22,10 @@ namespace BookStore.Areas.Customer.Controllers
             var productList = _productRepository.GetAll(includeProperties: "Category");
             return View(productList);
         }
+        public IActionResult Details(int id)
+        {
+            var product= _productRepository.Get(x=>x.ProductId== id , includeProperties: "Category");
+            return View(product);
+        }
     }
 }

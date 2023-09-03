@@ -1,0 +1,30 @@
+﻿@model Product
+<section class="py-5">
+    <form method="get">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="card border-primary m-0">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6"><img class="card-img-top mb-5" src=@Model.ImageUrl alt="..." style="margin-top:40px; margin-left:25px"/></div>
+            <div class="col-md-6">
+                <div class="small mb-1">SKU: BST-498</div>
+                <h1 class="display-5 fw-bolder">Shop item template</h1>
+                <div class="fs-5 mb-5">
+                    <span>$@Model.Price</span>
+                </div>
+                <p class="lead">@Html.Raw(Model.Description)</p>
+                <div class="d-flex">
+                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+                    <button class="btn btn-primary flex-shrink-0 bg-primary text-bg-primary" type="button">
+                        <i class="bi-cart-fill me-1 text-bg-primary"></i>
+                        Add to cart
+                    </button>
+                   <button asp-controller="User" asp-action="Index" class="btn btn-primary bg-primary text-bg-primary" style="margin-left:30px">
+                        Back to List
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </form>
+</section>

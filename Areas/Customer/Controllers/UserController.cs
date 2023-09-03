@@ -1,4 +1,5 @@
-﻿using BookStore.Models;
+﻿using BookStore.DataAccess.Repository.IRepository;
+using BookStore.Models;
 using BookStore.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -9,15 +10,17 @@ namespace BookStore.Areas.Customer.Controllers
     public class UserController : Controller
     {
         private readonly ILogger<UserController> _logger;
-
-        public UserController(ILogger<UserController> logger)
+        private readonly IProductRepository _productRepository;
+        public UserController(ILogger<UserController> logger, IProductRepository productRepository)
         {
             _logger = logger;
+            _productRepository = productRepository;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var productList = _productRepository.GetAll(includeProperties: "Category");
+            return View(productList);
         }
     }
 }

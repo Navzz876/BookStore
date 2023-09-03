@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<Product>
-<div class="jumbotron" style="background-image: url( '.. /../../../Images/Product/BookpageHome.jpg');background-size: cover; width:100%;}">
+<div class="jumbotron" style="background-image: url( '.. /../../../Images/Product/BookpageHomeLatest.jpg');background-size: cover; width:100%;}">
     <br /> <br /> <br /> <br /> <br /> <br />
     <div class="container">
-        <h1 class="display-4" style="color:white">Fluid jumbotron</h1>
-        <p class="lead" style="color:white">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+        <h1 class="display-4" style="color:Background; font-weight:400; font-size:70px;text-align:center" >Welcome to the BookStore</h1>
+        <p class="lead" style="color:Background;font-size:38px;text-align:center">Your one stop site for all your books and accessories</p>
     </div>
 </div>
     <div class="row">
@@ -14,8 +14,8 @@
                 <div class="card" style="width: 18rem;">
                     <img src=@product.ImageUrl class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h5 class="card-title">@product.Title</h5>
+                        <p class="card-text"> $@product.Price</p>
                         <a href="#" class="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>

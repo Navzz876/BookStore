@@ -16,7 +16,22 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand text-bg-primary"asp-area="" asp-controller="Home" asp-action="Index">BookStore</a>
+             @if (Html.ViewContext.RouteData.Values.Count() > 0)
+             {
+              @if (Html.ViewContext.RouteData.Values["area"].ToString() == "Admin")
+               {
+                        <a class="navbar-brand text-bg-primary" asp-area="Admin" asp-controller="AdminHome" asp-action="Index"><i class="bi bi-house-door"></i></a>
+               }
+              else if (Html.ViewContext.RouteData.Values["area"].ToString() == "Customer")
+               {
+                        <a class="navbar-brand text-bg-primary" asp-area="Customer" asp-controller="User" asp-action="Index"><i class="bi bi-house-door"></i></a>
+               }
+              else
+              {
+                        <a class="navbar-brand text-bg-primary" asp-area="Home" asp-controller="Home" asp-action="Index"><i class="bi bi-house-door"></i></a>
+              }
+
+             }                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -32,6 +47,18 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-bg-primary" asp-area="Admin" asp-controller="Product" asp-action="Index" >Product</a>
+                                </li>            
+                                <li class="nav-item">
+                                    <a class="nav-link text-bg-primary" asp-area="Home" asp-controller="Home" asp-action="RegisterUser">Register</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-bg-primary text-end" asp-area="Home" asp-controller="Home" asp-action="Index" style="margin-left:776px">Back To Login Page</a>
+                                </li>
+                            }
+                            else if (Html.ViewContext.RouteData.Values["area"].ToString() == "Customer")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-bg-primary text-end" asp-area="Home" asp-controller="Home" asp-action="Index" style="margin-left:1025px">Back To Login Page</a>
                                 </li>
                             }
                         }              
@@ -59,6 +86,7 @@
     <script src="https://cdn.tiny.cloud/1/0flgrod7s84xe8tn5evdx4xwzr4192orcdxmeots5x8vfx9p/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script src="//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

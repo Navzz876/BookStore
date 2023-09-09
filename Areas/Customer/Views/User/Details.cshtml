@@ -1,6 +1,6 @@
 ﻿@model Product
 <section class="py-5">
-    <form method="get">
+    <form method="post">
     <div class="container px-4 px-lg-5 my-5">
         <div class="card border-primary m-0">
         <div class="row gx-4 gx-lg-5 align-items-center">
@@ -18,9 +18,12 @@
                         <i class="bi-cart-fill me-1 text-bg-primary"></i>
                         Add to cart
                     </button>
-                   <button asp-controller="User" asp-action="Index" class="btn btn-primary bg-primary text-bg-primary" style="margin-left:30px">
-                        Back to List
-                    </button>
+                    <form method="get">
+                                <button asp-controller="User" asp-action="Index" class="btn btn-primary bg-primary text-bg-primary" style="margin-left:15px">
+                                    <i class="bi bi-backspace-fill hvr-icon"></i>
+                                    Back to Home
+                                </button>
+                    </form>                    
                 </div>
             </div>
         </div>

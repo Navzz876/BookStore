@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics;
 using System.Linq;
+using static BookStore.Utilities.Constants;
+using Extensions.MV;
 
 namespace BookStore.Controllers
 {
@@ -39,11 +41,11 @@ namespace BookStore.Controllers
             var IsEnteredPassword = userInfoList.Where(x => x.Password == userInformation.Password);          
             if (IsEnteredPassword.Any() && IsEnteredUserName.Any())
             {
-                if (userInformation.UserName.Contains("Admin"))
+                if (userInformation.UserName.Contains(UserRoles.Admin.GetEnumDescription()))
                 {
                     return RedirectToAction("Index", "AdminHome", new { area = "Admin" });
                 }
-                else if (userInformation.UserName.Contains("Customer"))
+                else if (userInformation.UserName.Contains(UserRoles.Customer.GetEnumDescription()))
                 {
                     return RedirectToAction("Index", "User", new { area = "Customer" });
                 }

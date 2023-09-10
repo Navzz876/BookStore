@@ -25,7 +25,7 @@ namespace BookStore.Areas.Admin.Controllers
         }
         public IActionResult RegisterUser()
         {
-            IEnumerable<SelectListItem> categoryList = _categoryRepository.GetAll(includeProperties: null).Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
+            IEnumerable<SelectListItem> categoryList = _categoryRepository.GetAll(includeProperties:null).Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
             UserInformationViewModel userInformationViewModel = new UserInformationViewModel()
             {
                 UserInformation = new UserInformation(),
@@ -48,7 +48,9 @@ namespace BookStore.Areas.Admin.Controllers
                 }
             }
             TempData["failure"] = "Unable to Register the User at the moment. Please try again later";
-            return RedirectToAction("Index", "AdminHome");
+            IEnumerable<SelectListItem> categoryList = _categoryRepository.GetAll(includeProperties: null).Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
+            userInformationViewModel.CategoryList= categoryList;
+            return View(userInformationViewModel);
         }
     }
 }

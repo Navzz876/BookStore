@@ -56,25 +56,26 @@ namespace BookStore.Areas.Admin.Controllers
             return View();
 
         }
-        public IActionResult DeleteCategory(int? id)
+        #region APICalls
+        [HttpGet]
+        public IActionResult GetAll()
         {
-
-            var category = _categoryDb.Get(x => x.Id == id, includeProperties: null);
-            return View(category);
+            var categoryList = _categoryDb.GetAll(includeProperties: null);
+            return Json(new { data = categoryList });
         }
-        [HttpPost]
-        public IActionResult DeleteCategory(Category category)
+        [HttpDelete]
+        public IActionResult DeleteCategory(Category category, int?id)
         {
+            category = _categoryDb.Get(x => x.Id == id, includeProperties: null);
             if (ModelState.IsValid)
             {
                 _categoryDb.Delete(category);
                 _categoryDb.Save();
-                TempData["success"] = "Category deleted successfully";
-                return RedirectToAction("Index");
+                return Json(new { success = true, message = "Category Deleted Successfully" });
             }
-            TempData["failure"] = "Unable to delete category";
-            return View();
+            return Json(new { success = false, message = "Unable to Delete Product" });
 
         }
+        #endregion
     }
 }

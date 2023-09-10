@@ -28,23 +28,10 @@
         <th></th>
        
     </tr>
-    @foreach (var category in Model.OrderBy(x=>x.DisplayOrder))
-    {
-        <tr>
-
-            <td>
-                @category.Name
-            </td>
-            <td>
-                @category.DisplayOrder
-            </td>
-            <td class="col-1">                
-                    <a class=" link-primary text-primary" asp-controller="Category" asp-action="EditCategory" asp-route-id="@category.Id"><i class="bi bi-pencil-square text-primary"></i> Edit </a>
-            </td>
-            <td class="col-1">
-                    <a asp-controller="Category" asp-action="DeleteCategory" asp-route-id="@category.Id"> <i class="bi bi-trash-fill text-danger"></i> </a>
-            </td>
-        </tr>
-    }  
-</table>
+    </table>
+        <table id="categoryTable"></table>
 </div>
+
+@section Scripts {
+    <script src="~/js/category.js"></script>
+}

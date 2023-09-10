@@ -53,31 +53,9 @@ namespace BookStore.Controllers
             TempData["failure"] = "User does not exist in the records. Please Register as a new user";
             return View(userInformation);
         }
-        public IActionResult RegisterUser()
+        public IActionResult Logout()
         {
-            IEnumerable<SelectListItem> categoryList = _categoryRepository.GetAll(includeProperties: null).Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() });
-            UserInformationViewModel userInformationViewModel = new UserInformationViewModel()
-            {
-                UserInformation = new UserInformation(),
-                CategoryList = categoryList
-            };
-
-            return View(userInformationViewModel);
-        }
-        [HttpPost]
-        public IActionResult RegisterUser( UserInformationViewModel userInformationViewModel )
-        {
-            if(ModelState.IsValid)
-            {
-                if(userInformationViewModel != null)
-                {
-                    _userInformationRepository.Add(userInformationViewModel.UserInformation);
-                    _userInformationRepository.Save();
-                    TempData["success"] = "User Registered Successfully";
-                    return RedirectToAction("Index", "Home");
-                }                
-            }
-            TempData["failure"] = "Unable to Register the User at the moment. Please try again later";
+            TempData["success"] = "User logged out successfully";
             return RedirectToAction("Index", "Home");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

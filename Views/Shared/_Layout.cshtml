@@ -51,14 +51,30 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-bg-primary" asp-area="Home" asp-controller="Home" asp-action="RegisterUser">Register</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-bg-primary text-end" asp-area="Home" asp-controller="Home" asp-action="Index" style="margin-left:776px">Back To Login Page</a>
+                                <li class="nav-item dropdown" style="margin-left:700px">
+                                    <a class="nav-link dropdown-toggle text-bg-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle">
+                                        Welcome Admin123
+                                    </a>
+
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        <li><a class="dropdown-item text-white" href="#">Edit Profile</a></li>
+                                        <li><a class="dropdown-item text-white" asp-area="Home" asp-controller="Home" asp-action="Index">Logout</a></li>
+                                    </ul>
                                 </li>
                             }
                             else if (Html.ViewContext.RouteData.Values["area"].ToString() == "Customer")
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-bg-primary text-end" asp-area="Home" asp-controller="Home" asp-action="Index" style="margin-left:1025px">Back To Login Page</a>
+                                <li class="nav-item dropdown" style="margin-left:940px">
+                                    <a class="nav-link dropdown-toggle text-bg-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle">
+                                        Welcome Customer123
+                                    </a>
+
+                                    <ul class="dropdown-menu dropdown-menu-dark">
+                                        <li><a class="dropdown-item text-white" href="#">Edit Profile</a></li>
+                                        <li><a class="dropdown-item text-white"asp-area="Home" asp-controller="Home" asp-action="Index">Logout</a></li>
+                                    </ul>
                                 </li>
                             }
                         }              

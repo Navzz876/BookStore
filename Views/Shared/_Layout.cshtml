@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using BookStore.Utilities;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -20,8 +21,10 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button>           
                     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    @if (User.IsInRole(Constants.UserRoles.Admin))
+                    {
                         <ul class="navbar-nav flex-grow-1">
                                 <li class="nav-item">
                                     <a class="nav-link text-bg-primary" asp-area="Admin" asp-controller="Category" asp-action="Index" >Category</a>
@@ -30,6 +33,7 @@
                                     <a class="nav-link text-bg-primary" asp-area="Admin" asp-controller="Product" asp-action="Index" >Product</a>
                                 </li>                                                                                                          
                         </ul>
+                    }
                         <partial name="_LoginPartial"/>
                     </div>
             </div>

@@ -3,12 +3,16 @@ using BookStore.DataAccess.Data;
 using BookStore.DataAccess.Repository.IRepository;
 using BookStore.Models.Models;
 using BookStore.Models.ViewModels;
+using BookStore.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace BookStore.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = Constants.UserRoles.Admin)]
     public class ProductController : Controller
     {
         protected readonly IProductRepository _productDb;

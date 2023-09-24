@@ -17,7 +17,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
@@ -37,6 +39,7 @@ namespace BookStore.Areas.Identity.Pages.Account
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -46,6 +49,7 @@ namespace BookStore.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -100,18 +104,31 @@ namespace BookStore.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+            public string? Role { get; set; }
+            [ValidateNever]
+            public IEnumerable<SelectListItem> RoleList { get; set; }
+
         }
 
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if(!_roleManager.RoleExistsAsync(Constants.UserRoles.Customer).GetAwaiter().GetResult())
+            if (!_roleManager.RoleExistsAsync(Constants.UserRoles.Customer).GetAwaiter().GetResult())
             {
                 _roleManager.CreateAsync(new IdentityRole(Constants.UserRoles.Customer)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(Constants.UserRoles.Admin)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(Constants.UserRoles.Company)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(Constants.UserRoles.Employee)).GetAwaiter().GetResult();
             }
+
+            Input = new()
+            {
+                RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem()
+                {
+                    Text = i,
+                    Value = i
+                })
+            };                                              
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -130,6 +147,14 @@ namespace BookStore.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
+                    if(!string.IsNullOrEmpty(Input.Role))
+                    {
+                        await _userManager.AddToRoleAsync(user, Input.Role);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, Constants.UserRoles.Customer);
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

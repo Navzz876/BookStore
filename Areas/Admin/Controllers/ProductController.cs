@@ -78,7 +78,7 @@ namespace BookStore.Areas.Admin.Controllers
            
             if (ModelState.IsValid)
             {
-                productViewModel.Product = _productDb.Get(x => x.ProductId == id, includeProperties: "Category");
+                //productViewModel.Product = _productDb.Get(x => x.ProductId == id, includeProperties: "Category");
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 if (file != null)
                 {

@@ -15,49 +15,18 @@ namespace BookStore.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IUserInformationRepository _userInformationRepository;
         private readonly ICategoryRepository _categoryRepository;
-        public HomeController(ILogger<HomeController> logger, IUserInformationRepository userInformationRepository, ICategoryRepository categoryRepository )
+        public HomeController(ILogger<HomeController> logger, ICategoryRepository categoryRepository )
         {
             _logger = logger;
-            _userInformationRepository = userInformationRepository; 
             _categoryRepository = categoryRepository;
         }
 
         public IActionResult Index()
         {
-            var userInfo = new UserInformation()
-            {
-                UserName="",
-                Password= ""
-            };
-            return View(userInfo);
-        }
-        [HttpPost]
-        public IActionResult Index(UserInformation userInformation)
-        {
-            var userInfoList = _userInformationRepository.GetAll(includeProperties: null);
-            var IsEnteredUserName = userInfoList.Where(x => x.UserName == userInformation.UserName);
-            var IsEnteredPassword = userInfoList.Where(x => x.Password == userInformation.Password);          
-            if (IsEnteredPassword.Any() && IsEnteredUserName.Any())
-            {
-                if (userInformation.UserName.Contains(UserRoles.Admin.GetEnumDescription()))
-                {
-                    return RedirectToAction("Index", "AdminHome", new { area = "Admin" });
-                }
-                else if (userInformation.UserName.Contains(UserRoles.Customer.GetEnumDescription()))
-                {
-                    return RedirectToAction("Index", "User", new { area = "Customer" });
-                }
-            }
-            TempData["failure"] = "User does not exist in the records. Please Register as a new user";
-            return View(userInformation);
-        }
-        public IActionResult Logout()
-        {
-            TempData["success"] = "User logged out successfully";
-            return RedirectToAction("Index", "Home");
-        }
+            
+            return View();
+        }     
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

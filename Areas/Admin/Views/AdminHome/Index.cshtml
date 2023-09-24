@@ -1,107 +1,25 @@
-﻿<div class="text-primary" style="font-size:50px;text-align:center;margin-bottom:30px;">
-    Sales Dashboard
+﻿@model IEnumerable<Product>
+<div class="jumbotron" style="background-image: url( '.. /../../../Images/Product/BookpageHomeLatest.jpg');background-size: cover; width:100%;}">
+    <br /> <br /> <br /> <br /> <br /> <br />
+    <div class="container">
+        <h1 class="display-4" style="color:Background; font-weight:400; font-size:70px;text-align:center">Welcome to the BookStore</h1>
+        <p class="lead" style="color:Background;font-size:38px;text-align:center">Your one stop site for all your books and accessories</p>
+    </div>
 </div>
-<div class="container">
 <div class="row">
-    <div class="col-md-4 col-xl-3">
-        <div class="card bg-primary text-bg-primary">
-            <div class="card-block" style="padding:50px;text-align:center">
-                <h6 class="m-b-20">Orders Received</h6>
-                <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
-                    <h6 class="m-b-20">Completed Orders</h6>
-                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>351</span></h2>
+    @foreach (var product in Model.ToList())
+    {
+
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+                <img src=@product.ImageUrl class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Title</h5>
+                    <p class="card-text"> $@product.Price</p>
+                    <a asp-action="Details" asp-route-id="@product.ProductId" class="btn btn-primary">Show Details</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4 col-xl-3">
-            <div class="card bg-secondary text-bg-primary">
-                <div class="card-block" style="padding:50px;text-align:center">
-                    <h6 class="m-b-20">Orders Received</h6>
-                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
-                    <h6 class="m-b-20">Completed Orders</h6>
-                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>351</span></h2>
-                </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 col-xl-3">
-            <div class="card bg-info text-bg-primary">
-                <div class="card-block" style="padding:50px;text-align:center">
-                    <h6 class="m-b-20">Orders Received</h6>
-                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
-                    <h6 class="m-b-20">Completed Orders</h6>
-                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>351</span></h2>
-                </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 col-xl-3" style="margin-bottom:40px;">
-            <div class="card bg-danger text-bg-primary">
-                <div class="card-block" style="padding:50px;text-align:center">
-                    <h6 class="m-b-20">Orders Received</h6>
-                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
-                    <h6 class="m-b-20">Completed Orders</h6>
-                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>351</span></h2>
-                </div>
-        </div>
-    </div>
+    }
 </div>
-</div>
-<div class="row">
-    <div class="col-6">
-        <canvas id="myChart"></canvas>
-    </div>
-    <div class="col-6">
-        <canvas id="lineChart"></canvas>
-    </div>
-</div>
-
-
-@section Scripts{
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    const ctx = document.getElementById('myChart');
-
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-        const linectx = document.getElementById('lineChart');
-
-        new Chart(linectx, {
-            type: 'line',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-</script>
-}

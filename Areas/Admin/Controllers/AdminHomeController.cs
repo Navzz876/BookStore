@@ -10,16 +10,23 @@ namespace BookStore.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminHomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly ICategoryRepository _categoryRepository;
-        public AdminHomeController(ILogger<HomeController> logger, ICategoryRepository categoryRepository)
+        private readonly ILogger<AdminHomeController> _logger;
+        private readonly IProductRepository _productRepository;
+        public AdminHomeController(ILogger<AdminHomeController> logger, IProductRepository productRepository)
         {
             _logger = logger;
-            _categoryRepository = categoryRepository;
+            _productRepository = productRepository;
         }
+
         public IActionResult Index()
         {
-            return View();
+            var productList = _productRepository.GetAll(includeProperties: "Category");
+            return View(productList);
+        }
+        public IActionResult Details(int id)
+        {
+            var product = _productRepository.Get(x => x.ProductId == id, includeProperties: "Category");
+            return View(product);
         }
     }
 }

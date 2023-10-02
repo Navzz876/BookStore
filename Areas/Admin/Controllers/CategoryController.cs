@@ -76,7 +76,7 @@ namespace BookStore.Areas.Admin.Controllers
                 _categoryDb.Save();
                 return Json(new { success = true, message = "Category Deleted Successfully" });
             }
-            return Json(new { success = false, message = "Unable to Delete Product" });
+            return Json(new { success = false, message = "Unable to Delete Category" });
 
         }
         #endregion

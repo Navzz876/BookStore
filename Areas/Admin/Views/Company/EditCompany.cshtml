@@ -1,0 +1,64 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Company
+
+<form method="post">
+    <div class="card border-info mb-3 mt-4" style="max-width: stretch 200px;">
+        <div class="cart-body text-info">
+            <div class="row pb-3 pt-4 p">
+                <h2 class="card-title text-center"> Edit Company</h2>
+            </div>
+            <div class="mb-4 p-3">
+                <label class="card-text">Name</label>
+                <input asp-for=Name class="input-group-text" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-4 p-3">
+                <label class="card-text">Street Address</label>
+                <input asp-for=StreetAddress class="input-group-text" />
+                <span asp-validation-for="StreetAddress" class="text-danger"></span>
+            </div>
+            <div class="mb-4 p-3">
+                <label class="card-text">City</label>
+                <input asp-for=City class="input-group-text" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="mb-4 p-3">
+                <label class="card-text">State</label>
+                <input asp-for=State class="input-group-text" />
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+            <div class="mb-4 p-3">
+                <label class="card-text">Postal Code</label>
+                <input asp-for=PostalCode class="input-group-text" />
+                <span asp-validation-for="PostalCode" class="text-danger"></span>
+            </div>
+            <div class="mb-4 p-3">
+                <label class="card-text">Country</label>
+                <input asp-for=Country class="input-group-text" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="mb-4 p-3">
+                <label class="card-text">Phone</label>
+                <input asp-for=Phone class="input-group-text" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="row mb-4 pb-3 p-3">
+                <div class="mb-4 col-6 text-start">
+                    <button class="btn btn-primary text-bg-dark bg-info"> Edit Company </button>
+
+                </div>
+                <div class="mb-4 col-6 text-end">
+                    <button asp-controller="Company" asp-action="Index" class="btn btn-primary text-bg-dark bg-info"><i class="bi bi-backspace-fill hvr-icon"></i> Back To List </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@*@section Scripts{
+
+        <partial name="_ValidationScriptsPartial"/>
+
+}*@

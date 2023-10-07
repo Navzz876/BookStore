@@ -9,6 +9,8 @@ using System.Linq;
 using static BookStore.Utilities.Constants;
 using Extensions.MV;
 using BookStore.DataAccess.Repository;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace BookStore.Controllers
 {
@@ -17,10 +19,12 @@ namespace BookStore.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductRepository _productRepository;
-        public HomeController(ILogger<HomeController> logger, IProductRepository productRepository)
+        private readonly IShoppingCartRepository _shoppingCartRepository;
+        public HomeController(ILogger<HomeController> logger, IProductRepository productRepository, IShoppingCartRepository shoppingCartRepository)
         {
             _logger = logger;
             _productRepository = productRepository;
+            _shoppingCartRepository = shoppingCartRepository;
         }
 
         public IActionResult Index()
@@ -31,7 +35,36 @@ namespace BookStore.Controllers
         public IActionResult Details(int id)
         {
             var product = _productRepository.Get(x => x.ProductId == id, includeProperties: "Category");
-            return View(product);
+            var shoppingCart = new ShoppingCart()
+            {
+                Product = product,
+                Count=1,
+                ProductId= id
+            };
+            return View(shoppingCart);
+        }
+        [HttpPost]
+        [Authorize]
+        public IActionResult Details(ShoppingCart shoppingCart)
+        {
+            var claimsIdentity= (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            shoppingCart.ApplicationUserId = userId;
+            var dbCart = _shoppingCartRepository.Get(x => x.ApplicationUserId == userId && x.ProductId == shoppingCart.ProductId, includeProperties:null);
+            if(dbCart != null)
+            {
+                dbCart.Count += shoppingCart.Count;
+                _shoppingCartRepository.Update(dbCart);
+            }
+            else
+            {
+                shoppingCart.Id = 0;
+                _shoppingCartRepository.Add(shoppingCart);
+            }
+            _shoppingCartRepository.Save();
+            TempData["success"] = "Product added to cart successfully";
+            return RedirectToAction(nameof(Index));
+
         }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

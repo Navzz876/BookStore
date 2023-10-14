@@ -63,7 +63,7 @@ namespace BookStore.Controllers
             }
             _shoppingCartRepository.Save();
             TempData["success"] = "Product added to cart successfully";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index","Cart");
 
         }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

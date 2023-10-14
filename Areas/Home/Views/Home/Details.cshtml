@@ -14,10 +14,14 @@
                         <p class="lead">@Html.Raw(Model.Product.Description)</p>
                         <div class="d-flex">
                             <input asp-for="Count" class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 3rem" />
+                            @if(!User.IsInRole("Admin"))
+                        {
                             <button class="btn btn-primary flex-shrink-0 bg-primary text-bg-primary" type="submit">
                                 <i class="bi-cart-fill me-1 text-bg-primary"></i>
                                 Add to cart
                             </button>
+                        }
+                       
                             <button asp-controller="Home" asp-action="Index" class="btn btn-primary bg-primary text-bg-primary" style="margin-left:15px">
                                 <i class="bi bi-backspace-fill hvr-icon"></i>
                                 Back to Home

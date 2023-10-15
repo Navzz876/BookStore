@@ -25,7 +25,7 @@ else
 <div class="container h-100 py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col">          
-            <div class="table-responsive">
+            <div>
                 <table class="table">
                     <thead>
                         <tr>
@@ -82,11 +82,16 @@ else
                     <p class="mb-2" style="font-weight:bold;font-size:xx-large">Total:</p>
                     <p class="mb-2" style="font-weight:bold;font-size:xx-large">$@Model.OrderTotal</p>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-left:440px">
-                    <div class="d-flex justify-content-between" style="padding-left:70px; padding-right:80px;">
-                        <span>Checkout</span>
-                    </div>
-                </button>
+                <span>
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-primary cart-btn-transform m-3" data-abc="true" style="padding:10px;"><i class="bi bi-backspace-fill"></i> Continue Shopping </a>
+                            <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-right:100px;margin-left:990px;margin-top:-120px;">
+                                <div class="d-flex justify-content-between">
+                                    <span>Checkout</span>
+                                </div>
+                            </button>
+                </span>
+               
+                
             </div>         
         </div>
     </div>

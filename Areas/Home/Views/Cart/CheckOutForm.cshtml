@@ -1,5 +1,6 @@
 ﻿@model ShoppingCartViewModel
 <main>
+    <form method="post">
     <div class="py-5 text-center">
         <h2>Checkout form</h2>
     </div>
@@ -7,7 +8,7 @@
         <div class="col-md-5 col-lg-4 order-md-last">
             <h4 class="d-flex justify-content-between align-items-center mb-3">
                 <span class="text-primary">Your cart</span>
-                <span class="badge bg-primary rounded-pill">@Model.TotalCount</span>
+                    <span class="badge bg-primary rounded-pill"><i class="bi bi-cart-fill"></i> @Model.TotalCount  </span>
             </h4>
             <ul class="list-group mb-3">
                 @foreach(var shoppingCart in Model.ShoppingCartList)
@@ -16,13 +17,14 @@
                     <div>
                         <h6 class="my-0">@shoppingCart.Product.Title</h6>
                     </div>
-                    <span class="text-muted">$@shoppingCart.Product.Price</span>
+                            <span class="text-muted">$@shoppingCart.Product.Price</span>
                 </li>
-                }             
+                } 
+                </ul>
+                <a asp-controller="Cart" asp-action="Index" class="btn btn-primary btn-lg"><i class="bi bi-backspace-fill"></i>  Back to Cart  </a>
         </div>
         <div class="col-md-7 col-lg-8">
             <h4 class="mb-3">Billing address</h4>
-            <form class="needs-validation" novalidate>
                 <div class="row g-3">
                     <div class="col-12">
                         <label for="firstName" class="form-label">Name</label>
@@ -133,8 +135,8 @@
 
                 <hr class="my-4">
 
-                <button class="w-100 btn btn-danger btn-lg" type="submit">Continue to checkout</button>
-            </form>
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>          
         </div>
     </div>
+    </form>
 </main>

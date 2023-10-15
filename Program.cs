@@ -28,6 +28,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IShoppingCartRepository,ShoppingCartRepository>();
 builder.Services.AddScoped<IApplicationUserRepository,ApplicationUserRepository>();
+builder.Services.AddScoped<IBillingDetailsRepository, BillingDetailsRepository>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 var app = builder.Build();
 

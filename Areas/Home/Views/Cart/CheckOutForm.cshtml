@@ -27,43 +27,43 @@
             <h4 class="mb-3">Billing address</h4>
                 <div class="row g-3">
                     <div class="col-12">
-                        <label for="firstName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="firstName" value="@Model.BillingDetails.Name" required>
+                        <label asp-for=@Model.BillingDetails.Name class="form-label">Name</label>
+                        <input asp-for=@Model.BillingDetails.Name type="text" class="form-control" value="@Model.BillingDetails.Name" required>
                     </div>
 
 
                     <div class="col-12">
-                        <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-                        <input type="email" class="form-control" id="email" placeholder="you@example.com" value="@Model.BillingDetails.EmailAddress">
+                        <label asp-for="@Model.BillingDetails.EmailAddress" class="form-label">Email <span class="text-muted">(Optional)</span></label>
+                        <input asp-for="@Model.BillingDetails.EmailAddress" type="email" class="form-control"  placeholder="you@example.com" value="@Model.BillingDetails.EmailAddress">
                         
                     </div>
 
                     <div class="col-12">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" placeholder="Plaza street" value="@Model.BillingDetails.Address">
+                        <label asp-for="@Model.BillingDetails.Address" class="form-label">Address</label>
+                        <input asp-for="@Model.BillingDetails.Address" type="text" class="form-control" id="address" placeholder="Plaza street" value="@Model.BillingDetails.Address">
                        
                     </div>
 
                     <div class="col-12">
-                        <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-                        <input type="text" class="form-control" id="address2" placeholder="Apartment or suite" value="@Model.BillingDetails.Address2">
+                        <label asp-for="@Model.BillingDetails.Address2"  class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
+                        <input asp-for="@Model.BillingDetails.Address2" type="text" class="form-control" placeholder="Apartment or suite" value="@Model.BillingDetails.Address2">
                     </div>
 
                     <div class="col-md-5">
-                        <label for="country" class="form-label">City</label>
-                        <input type="text" class="form-control" id="country" value="@Model.BillingDetails.City" />
+                        <label asp-for="@Model.BillingDetails.City" class="form-label">City</label>
+                        <input asp-for="@Model.BillingDetails.City" type="text" class="form-control" value="@Model.BillingDetails.City" />
                        
                     </div>
 
                     <div class="col-md-4">
-                        <label for="state" class="form-label">State</label>
-                        <input type="text" class="form-control" id="state" value="@Model.BillingDetails.State" />
+                        <label asp-for="@Model.BillingDetails.State" class="form-label">State</label>
+                        <input asp-for="@Model.BillingDetails.State" type="text" class="form-control" value="@Model.BillingDetails.State" />
                         
                     </div>
 
                     <div class="col-md-3">
-                        <label for="zip" class="form-label">Zip</label>
-                        <input type="text" class="form-control" id="zip" placeholder="" value="@Model.BillingDetails.ZipCode">
+                        <label asp-for="@Model.BillingDetails.ZipCode" class="form-label">Zip</label>
+                        <input asp-for="@Model.BillingDetails.ZipCode" type="text" class="form-control" placeholder="" value="@Model.BillingDetails.ZipCode">
                        
                     </div>
                 </div>
@@ -88,51 +88,7 @@
                         <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
                         <label class="form-check-label" for="debit">Debit card</label>
                     </div>
-                    <div class="form-check">
-                        <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-                        <label class="form-check-label" for="paypal">Paytm</label>
-                    </div>
-                    <div class="form-check">
-                        <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-                        <label class="form-check-label" for="paypal">Phonepe</label>
-                    </div>
                 </div>
-
-                <div class="row gy-3">
-                    <div class="col-md-6">
-                        <label for="cc-name" class="form-label">Name on card</label>
-                        <input type="text" class="form-control" id="cc-name" placeholder="" required>
-                        <small class="text-muted">Full name as displayed on card</small>
-                        <div class="invalid-feedback">
-                            Name on card is required
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label for="cc-number" class="form-label">Credit card number</label>
-                        <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Credit card number is required
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <label for="cc-expiration" class="form-label">Expiration</label>
-                        <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Expiration date required
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <label for="cc-cvv" class="form-label">CVV</label>
-                        <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                        <div class="invalid-feedback">
-                            Security code required
-                        </div>
-                    </div>
-                </div>
-
                 <hr class="my-4">
 
                 <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>          

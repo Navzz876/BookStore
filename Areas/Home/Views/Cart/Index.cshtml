@@ -21,6 +21,7 @@
 }
 else
 {
+    <form method="post">
 <div class="container h-100 py-5">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col">          
@@ -48,7 +49,6 @@ else
                                     </div>
                                 </div>
                             </th>
-                            <form method="post">
                             <td class="align-middle">
                                 <div class="d-flex flex-row">
                                     <button asp-controller="Cart" asp-action="Plus" asp-route-cartId="@shoppingCartList.Id" class="btn btn-link px-2">
@@ -74,7 +74,6 @@ else
                                         <i class="bi bi-trash-fill text-danger"></i>
                                     </button>
                             </td>
-                                </form>
                         </tr>
                         }
                     </tbody>
@@ -83,8 +82,7 @@ else
                     <p class="mb-2" style="font-weight:bold;font-size:xx-large">Total:</p>
                     <p class="mb-2" style="font-weight:bold;font-size:xx-large">$@Model.OrderTotal</p>
                 </div>
-
-                <button type="button" class="btn btn-primary btn-block btn-lg" style="margin-left:440px">
+                <button type="submit" class="btn btn-primary btn-block btn-lg" style="margin-left:440px">
                     <div class="d-flex justify-content-between" style="padding-left:70px; padding-right:80px;">
                         <span>Checkout</span>
                     </div>
@@ -93,4 +91,5 @@ else
         </div>
     </div>
 </div>
+    </form>
 }

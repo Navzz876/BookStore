@@ -14,7 +14,7 @@ using System.Security.Claims;
 
 namespace BookStore.Controllers
 {
-    [Area("Home")]
+    [Area("Home")] //Test
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

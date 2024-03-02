@@ -120,14 +120,7 @@ namespace BookStore.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if (!_roleManager.RoleExistsAsync(Constants.UserRoles.Customer).GetAwaiter().GetResult())
-            {
-                _roleManager.CreateAsync(new IdentityRole(Constants.UserRoles.Customer)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(Constants.UserRoles.Admin)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(Constants.UserRoles.Company)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(Constants.UserRoles.Employee)).GetAwaiter().GetResult();
-            }
-
+           
             Input = new()
             {
                 RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem()

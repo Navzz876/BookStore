@@ -7,11 +7,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BookStore.Utilities;
 using Stripe;
+using BookStore.DataAccess.DbInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IDbInitializer,DbInitializer>();
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection(nameof(StripeSettings)));
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddRazorPages();
@@ -47,6 +49,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
+InitializeDatabase();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
@@ -56,3 +59,12 @@ app.UseEndpoints(endpoints =>
 });
 
 app.Run();
+
+void InitializeDatabase()
+{
+    using(var scope= app.Services.CreateScope())
+    {
+        var dbInitializer= scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInitializer.Initialize();
+    }
+}
